@@ -1,14 +1,11 @@
 CC=gcc
 CFLAGS=-Wall
-LDFLAGS=
+LDFLAGS=-pthread
 
-all: tmmul
-
-mmul: matrix_mul.c
-	$(CC) $(CFLAGS) $< -o $@ && ./$@
-
-tmmul: threaded_matrix_mul.c
-	$(CC) $(CFLAGS) $< -o $@ && ./$@
+all: tmm
 
 clean:
-	rm -rf tmmul mmul
+	rm -rf tmm
+
+tmm: threaded_matrix_multiply.c
+	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@ && ./$@ A.txt B.txt
